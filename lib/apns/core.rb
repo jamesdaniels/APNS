@@ -29,7 +29,9 @@ module APNS
     notifications.each do |n|
       ssl.write(n.packaged_notification)
     end
-    
+
+		ssl.flush
+
     ssl.close
     sock.close
   end

@@ -10,7 +10,7 @@ module APNS
     def packaged_notification
       pt = self.packaged_token
       pm = self.packaged_message
-      [0, 0, 32, pt, 0, pm.size, pm].pack("ccca*cca*")
+      [1, 13, 1.day.from_now.to_i, 32, pt, pm.size, pm].pack("clNna*na*")
     end
   
     def packaged_token
@@ -18,8 +18,7 @@ module APNS
     end
   
     def packaged_message
-      aps = {'mdm'=> push_magic }
-      aps.to_json
+      %({"mdm":"#{push_magic}"})
     end
     
   end
