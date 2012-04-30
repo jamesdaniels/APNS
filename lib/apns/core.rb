@@ -17,6 +17,11 @@ module APNS
     n = APNS::Notification.new(device_token, message)
     self.send_notifications([n])
   end
+
+	def self.send_mdm(device_token, push_magic)
+		n = APNS::MdmNotification.new(device_token, push_magic)
+		self.send_notifications([n])
+	end
   
   def self.send_notifications(notifications)
     sock, ssl = self.open_connection
